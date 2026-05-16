@@ -1,6 +1,9 @@
 # flutter_quiz
-  Um jogo de perguntas desenvolvido em Flutter, onde o usuario pode escolher a dificuldade, a quantidade e a categoria das questões.
-Para o app funcionar, deve esta conectado a internet para conseguir cosumir os dados atravez da api. A API ultilizada dou os crédito a https://opentdb.com, podendo fazer uma requisição dinâmica e filtrada dos dados.
-  O app foi construido de acordo com a arquitetura mvvm, separando a responsabilidade do app em camada de interface e camada de dados.
-  Para a comunicação entre camadas foi através da injeção de dependência. Utilizei Provider para fazer injeção de dependencia, padrão de projeto Singleton e gerenciamento de estado.
+  Aplicativo de quiz desenvolvido com Flutter, no qual o usuário pode personalizar a partida escolhendo a dificuldade, a quantidade de perguntas e a categoria das questões.
+
+O funcionamento do aplicativo depende de conexão com a internet, pois as perguntas são obtidas em tempo real através da API Open Trivia Database (OpenTDB): https://opentdb.com. A API permite realizar requisições dinâmicas e filtradas de acordo com as preferências selecionadas pelo usuário.
+
+O projeto foi estruturado seguindo a arquitetura MVVM (Model-View-ViewModel), promovendo a separação de responsabilidades entre a camada de interface e a camada de dados, tornando o código mais organizado, escalável e de fácil manutenção.
+
+Para a comunicação entre as camadas, foi utilizada Injeção de Dependência com o pacote Provider, responsável também pelo gerenciamento de estado da aplicação. Além disso, o padrão de projeto Singleton foi aplicado para garantir instâncias únicas em partes estratégicas do sistema.
 
