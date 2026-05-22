@@ -1,17 +1,15 @@
-import 'package:aplicativo_de_quiz/pastajogar/jogarviewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
+import 'jogarview.dart';
+import 'jogarviewmodel.dart';
 import 'package:provider/provider.dart';
 
-import 'configurarjogoview.dart';
-
-class Carregarcategoriaview extends StatelessWidget {
-  const Carregarcategoriaview({super.key});
+class Carregaridiomaview extends StatelessWidget {
+  const Carregaridiomaview({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(future: context.read<JogarVM>().carregarcategoria(), builder: (contexto,situacao){
+    return FutureBuilder(future: context.read<JogarVM>().traduzir(), builder: (contexto,situacao){
       if(situacao.hasData){
         if(situacao.data is String){
           return Container(color: Colors.white,child: Column(
@@ -24,7 +22,7 @@ class Carregarcategoriaview extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (context) => const Carregarcategoriaview(),
+                        builder: (context) => Carregaridiomaview(),
                       ),
                           (var valor) =>false
                   );
@@ -33,7 +31,7 @@ class Carregarcategoriaview extends StatelessWidget {
             ],
           ),);
         }else{
-          return Configurarjogoview();
+          return Jogarview();
         }
       }else if(situacao.hasError){
         print('SEM INTERNET -> ${situacao.error}');
@@ -41,6 +39,6 @@ class Carregarcategoriaview extends StatelessWidget {
       }else{
         return Container(color: Colors.white,child: Center(child: Lottie.asset('animacoes/Loading IDE.json',width: 200)),);
       }
-    });
+    });;
   }
 }

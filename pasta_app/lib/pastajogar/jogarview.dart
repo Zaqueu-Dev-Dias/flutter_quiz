@@ -13,8 +13,17 @@ class Jogarview extends StatelessWidget {
     List<Widget> widgetperguntas() {
       List<Widget> dados = [];
       print('AQUIIIIII');
-      for (int quantidade = 0; quantidade <= context.read<JogarVM>().estadoquestao.misturado.length - 1; quantidade++) {
+      for (
+        int quantidade = 0;
+        quantidade <=
+            context.read<JogarVM>().estadoquestao.misturado.length - 1;
+        quantidade++
+      ) {
         if (quantidade == 0) {
+          dados.add(Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('Questão número ${context.read<JogarVM>().em_qual_pergunta + 1}',style: TextStyle(fontSize: 30),),
+          ),);
           dados.add(
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -26,18 +35,30 @@ class Jogarview extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     '${context.read<JogarVM>().estadoquestao.pergunta}',
-                    style: TextStyle(fontSize: 26,fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
                   ),
                 ),
               ),
             ),
           );
           dados.add(
-            CadaPergunta(alternativa: context.read<JogarVM>().estadoquestao.misturado[quantidade],indice: quantidade,),
+            CadaPergunta(
+              alternativa: context
+                  .read<JogarVM>()
+                  .estadoquestao
+                  .misturado[quantidade],
+              indice: quantidade,
+            ),
           );
         } else {
           dados.add(
-            CadaPergunta(alternativa: context.read<JogarVM>().estadoquestao.misturado[quantidade],indice: quantidade,),
+            CadaPergunta(
+              alternativa: context
+                  .read<JogarVM>()
+                  .estadoquestao
+                  .misturado[quantidade],
+              indice: quantidade,
+            ),
           );
         }
       }
@@ -46,7 +67,18 @@ class Jogarview extends StatelessWidget {
 
     List<Widget> receba = widgetperguntas();
     return Scaffold(
-      appBar: AppBar(title: Text('Questão número ${context.watch<JogarVM>().em_qual_pergunta+1}')),
+      appBar: AppBar(
+        title: ListTile(
+          title: Text(
+            'Adventure Quiz',
+            style: TextStyle(
+              fontWeight: FontWeight.w800,
+              fontSize: 30,
+              color: Colors.deepPurpleAccent,
+            ),
+          ),
+        ),
+      ),
       body: Container(
         child: ListView.builder(
           itemCount: receba.length,
@@ -60,7 +92,7 @@ class Jogarview extends StatelessWidget {
 }
 
 class CadaPergunta extends StatefulWidget {
-  List<String> alfabeto_letra = ['A','B','C','D'];
+  List<String> alfabeto_letra = ['A', 'B', 'C', 'D'];
   var cor_fundo = Colors.white;
   var cor_letra = Colors.black;
   late var alternativa;
@@ -78,60 +110,86 @@ class _CadaPerguntaState extends State<CadaPergunta> {
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          if(context.read<JogarVM>().verificarresposta(widget.alternativa)){
+          if (context.read<JogarVM>().verificarresposta(widget.alternativa)) {
             widget.cor_fundo = Colors.green;
             widget.cor_letra = Colors.white;
-            context.read<JogarVM>().acerto +=1;
-          }else{
+            context.read<JogarVM>().acerto += 1;
+          } else {
             context.read<JogarVM>().limite = false;
             widget.cor_fundo = Colors.red;
             widget.cor_letra = Colors.white;
-            context.read<JogarVM>().erros +=1;
+            context.read<JogarVM>().erros += 1;
           }
           setState(() {});
-          Future.delayed(Duration(seconds: 2),(){
+          Future.delayed(Duration(seconds: 2), () {
             context.read<JogarVM>().proximapergunta();
-            if(context.read<JogarVM>().limite){
+            if (context.read<JogarVM>().limite) {
               context.read<JogarVM>().em_qual_pergunta = 0;
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute<void>(builder: (context) => Resultadofinalview(),),
-                    (var valor) => false,
+                MaterialPageRoute<void>(
+                  builder: (context) => Resultadofinalview(),
+                ),
+                (var valor) => false,
               );
-            }else{
+            } else {
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute<void>(builder: (context) => Jogarview(),),
-                    (var valor) => false,
+                MaterialPageRoute<void>(builder: (context) => Jogarview()),
+                (var valor) => false,
               );
             }
           });
         },
         child: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(color: Colors.black),
-              color:widget.cor_fundo),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: Colors.black),
+            color: widget.cor_fundo,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),border: Border.all(color: Colors.deepPurpleAccent),color: Colors.deepPurple),
-                      child: Center(child: Text('${widget.alfabeto_letra[widget.indice]}',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20,color: Colors.white),)),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.deepPurpleAccent),
+                      color: Colors.deepPurple,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${widget.alfabeto_letra[widget.indice]}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  Expanded(child: Text('${widget.alternativa}', style: TextStyle(fontSize: 26,color: widget.cor_letra,fontWeight: FontWeight.w500)))
-                ],
-              ),
+                ),
+                Expanded(
+                  child: Text(
+                    '${widget.alternativa}',
+                    style: TextStyle(
+                      fontSize: 26,
+                      color: widget.cor_letra,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );;
+    );
+    ;
   }
 }

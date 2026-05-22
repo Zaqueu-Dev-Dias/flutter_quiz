@@ -9,11 +9,12 @@ class Resultadofinalview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Resultado Final')),
+      appBar: AppBar(title: Text('Adventure Quiz',style: TextStyle(fontSize: 30,fontWeight: FontWeight.w800,color: Colors.deepPurpleAccent),)),
       body: Container(
         color: Colors.white,
         child: Column(
           children: [
+            Text('Resultado final: ',style: TextStyle(fontSize: 25,fontWeight: FontWeight.w700),),
             Padding(
               padding: const EdgeInsets.only(
                 left: 20,

@@ -4,10 +4,14 @@ import 'package:aplicativo_de_quiz/modelo_app/repositorio/repositorio2.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../modelo_app/repositorio/repositorio3.dart';
+
 class JogarVM extends ChangeNotifier{
 
   int quantidadeperguntas = 1;
+  String idioma_selecionado = 'Ingles';
   Repositorio2 repositorio2;
+  Repositorio3 repositorio3;
   late Map _mappergunta;
   int acerto = 0;
   int erros = 0;
@@ -16,11 +20,16 @@ class JogarVM extends ChangeNotifier{
   late EstadoQuestao estadoquestao;
   bool limite = false;
   Map<String,String> dadospararequisicao = {'nivel': 'easy'};
-  JogarVM({required this.repositorio2});
+  JogarVM({required this.repositorio2, required this.repositorio3});
 
   void mudarnivel(Set nivel){
     dadospararequisicao['nivel'] = nivel.first;
     notifyListeners();//notificar que tem que renderizar a tela
+  }
+
+  void mudaridioma(Set idioma){
+    this.idioma_selecionado = idioma.first;
+    notifyListeners();
   }
   void aumentarpergunta(){
     this.quantidadeperguntas += 1;
@@ -55,15 +64,21 @@ class JogarVM extends ChangeNotifier{
     return repositorio2.pegarmapdadogeral(dadospararequisicao);
   }
 
-  void pegarmapgeral(){
-    print('ERRO AQUI');
+  Future<Object> traduzir()async{
     repositorio2.transformajsongeral();
     this._mappergunta = repositorio2.pegarmapperguntas();
-    this.estadoquestao = EstadoQuestao(_mappergunta['results'][em_qual_pergunta]);
-    estadoquestao.misturar(em_qual_pergunta);
-    print('*********** ${this._mappergunta} ***********');
+    return repositorio3.traduzir(_mappergunta);
   }
 
+  void pegarmapgeral(){
+    if(idioma_selecionado == 'Portugues'){
+      this.estadoquestao = EstadoQuestao(repositorio3.dado['results'][em_qual_pergunta]);
+      estadoquestao.misturar(em_qual_pergunta);
+    }else{
+      this.estadoquestao = EstadoQuestao(_mappergunta['results'][em_qual_pergunta]);
+      estadoquestao.misturar(em_qual_pergunta);
+    }
+  }
 
   bool verificarresposta(var questao){
      if(questao == _mappergunta['results'][em_qual_pergunta]['correct_answer']){

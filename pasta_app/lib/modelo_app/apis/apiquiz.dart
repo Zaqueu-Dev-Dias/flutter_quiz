@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 class ApiQuiz{
 
-  Future<Object> buscarcategorias()async{
+  Future<Object> buscarcategorias()async{ // ele vai gerar e retorna um objeto future<Object> com o bloco de código da função.
     try{
       var url = Uri.parse('https://opentdb.com/api_category.php');
       var resposta = await http.get(url);

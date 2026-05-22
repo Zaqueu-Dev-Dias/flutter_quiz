@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'carregaridiomaview.dart';
 import 'jogarview.dart';
 import 'jogarviewmodel.dart';
 
@@ -29,7 +30,7 @@ class Carregarjogoview extends StatelessWidget {
                 child: Text('${situacao.data}',style: TextStyle(decoration: TextDecoration.none,fontSize: 25),)),
           ],),);
         }else{
-          return Jogarview();
+          return Carregaridiomaview();
         }
       }else if(situacao.hasError){
         return Container(color: Colors.white,child: Center(child: Image.asset('imagens/anxiety.png')),);
