@@ -24,7 +24,7 @@ Aqui tem algumas imagens mostrando o layout e funcionamento do app.
 
 <img width="200" height="400" alt="8d095b3d-3608-4644-9878-9cef736d8375" src="https://github.com/user-attachments/assets/3cb5e31c-9eb1-4223-b199-9a788231d9f9" />
 
-Atualizações...
+A API utilizada para obter as questões só trazem as perguntas no idiomas Inglês, mas com a assistência da inteligência artificial conseguir traduzir as perguntas para o Português. 
 
 
 
